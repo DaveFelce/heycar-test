@@ -8,6 +8,10 @@ logger = utils.get_logger(__name__)
 
 
 def post():
+    """
+    Upload a new image
+    :return: Response with data
+    """
     # Create new image id
     image_id = str(uuid.uuid4())
 
@@ -37,6 +41,10 @@ def post():
 
 
 def get():
+    """
+    Retrieve an image's details from the DB
+    :return: Response with image data
+    """
     image_id = request.args.get("image_id")
 
     if image_id:

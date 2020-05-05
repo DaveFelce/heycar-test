@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 from config import Config
 from sqlalchemy import create_engine
@@ -6,6 +7,9 @@ from sqlalchemy.orm import sessionmaker
 
 
 class DB:
+    """
+    Helper class for all things database. In a production app, you'd split this up a bit better
+    """
 
     def __init__(self):
         self.session = None
@@ -33,10 +37,14 @@ class DB:
     def execute(self, query, args=None):
         return self.get_session().execute(query, args)
 
-    def add(self, obj):
-        self.get_session().add(obj)
-
     def add_image_record(self, image_id: str, name: str, image_url: str):
+        """
+        Add a new image record to the DB
+
+        :param image_id: UUID, the primary key of image table
+        :param name: image name
+        :param image_url: URL of image on S3
+        """
         query_string = f"""
             INSERT INTO image (id, name, image_url)
             VALUES(:id, :name, :image_url)
@@ -47,7 +55,13 @@ class DB:
         self.execute(query_string, query_args)
         self.commit()
 
-    def get_image_record(self, image_id: str):
+    def get_image_record(self, image_id: str) -> Tuple:
+        """
+        Fetch an image record from the DB on image_id
+
+        :param image_id: UUID, the primary key of the image table
+        :return:
+        """
         query_string = f"""
             SELECT i.name, i.image_url
             FROM image AS i

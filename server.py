@@ -18,7 +18,7 @@ flask_app = app.app
 logger = utils.get_logger(__name__)
 
 
-# Grab a DB connection
+# Grab a DB connection and AWS instance for global use
 @flask_app.before_request
 def get_db_connection():
     g.db = db

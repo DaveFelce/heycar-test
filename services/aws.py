@@ -5,15 +5,20 @@ from config import Config as local_config
 
 
 class AWS:
+    """
+    Helper class for all thing AWS related
+    """
     def __init__(self):
         self.s3 = boto3.client("s3", config=Config(signature_version=UNSIGNED))
-        # self.s3 = boto3.client(
-        #     "s3",
-        #     aws_access_key_id=Config.S3_KEY,
-        #     aws_secret_access_key=Config.S3_SECRET
-        # )
 
-    def upload_file_to_s3(self, image, bucket_name, acl="public-read"):
+    def upload_file_to_s3(self, image, bucket_name: str, acl="public-read") -> str:
+        """
+
+        :param image: The uploaded image object
+        :param bucket_name: S3 bucket name
+        :param acl:
+        :return: The URL for the image on S3
+        """
         self.s3.upload_fileobj(
             image,
             bucket_name,
@@ -25,7 +30,6 @@ class AWS:
         )
 
         return f"{local_config.S3_LOCATION}/{image.filename}"
-        # return "{}{}".format(local_config.S3_LOCATION, image.filename)
 
 
 aws = AWS()

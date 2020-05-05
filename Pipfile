@@ -12,6 +12,9 @@ psycopg2-binary = "*"
 boto3 = "*"
 sqlalchemy = "*"
 connexion = {version = "*",extras = ["swagger-ui"]}
+botocore = "*"
+pytest = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.8"

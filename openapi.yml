@@ -48,10 +48,20 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
-          description: Logo image in JPG format
+        "200":
+          description: Image details
           content:
-            image/*:
+            application/json:
               schema:
-                type: string
-                format: binary
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      image_id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      image_url:
+                        type: string

@@ -36,18 +36,29 @@ class DB:
     def add(self, obj):
         self.get_session().add(obj)
 
-    def get_company_record_for_id(self, id: str):
+    def add_image_record(self, image_id: str, name: str, image_url: str):
         query_string = f"""
-            SELECT c.mailchimp_api_key, c.ometria_api_key, c.mailchimp_members_list_id, c.last_import_date
-            FROM company AS c
-            WHERE c.id = :id
+            INSERT INTO image (id, name, image_url)
+            VALUES(:id, :name, :image_url)
         """
 
-        query_args = {"id": id}
+        query_args = {"id": image_id, "name": name, "image_url": image_url}
 
-        company_row = self.select(query_string, query_args)[0]
+        self.execute(query_string, query_args)
+        self.commit()
 
-        return company_row
+    def get_image_record(self, image_id: str):
+        query_string = f"""
+            SELECT i.name, i.image_url
+            FROM image AS i
+            WHERE i.id = :image_id
+        """
+
+        query_args = {"image_id": image_id}
+
+        image_row = self.select(query_string, query_args)[0]
+
+        return image_row
 
 
 db = DB()

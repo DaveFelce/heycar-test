@@ -16,7 +16,7 @@ def post():
 
     if image:
         try:
-            image_filename = g.aws.upload_file_to_s3(
+            image_url = g.aws.upload_file_to_s3(
                 image=image,
                 bucket_name=Config.S3_BUCKET
             )
@@ -28,9 +28,7 @@ def post():
         return "Please upload an image file", 400
 
     # Update the image table
-    # dal_authors.add_author(
-    #     name, info, image_filename, id=id, institution_id=institution_id
-    # )
+    g.db.add_image_record(image_id=image_id, name=name, image_url=image_url)
 
     data = {"image_id": image_id}
 
@@ -39,6 +37,15 @@ def post():
 
 
 def get():
-    thing = 1
+    image_id = request.args.get("image_id")
 
-    return "Get is alive", 200
+    if image_id:
+        # Update the image table
+        name, image_url = g.db.get_image_record(image_id=image_id)
+    else:
+        return "Please provide an image id", 400
+
+    data = {"image_id": image_id, "name": name, "image_url": image_url}
+
+    # Done
+    return data, 200

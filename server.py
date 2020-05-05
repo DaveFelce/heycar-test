@@ -37,4 +37,4 @@ def home():
 
 if __name__ == "__main__":
     # Port needed for development
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host=os.environ.get('HOST', '0.0.0.0'), port=5000)

@@ -20,7 +20,7 @@ services:
       context: ../..
       dockerfile: .docker/Dockerfile
     image: heycar-test
-    command: sh -c "/app/wait-for-it.sh postgres:5432 && alembic upgrade head && tail -f /dev/null"
+    command: sh -c "/app/wait-for-it.sh postgres:5432 && alembic upgrade head && python server.py"
     depends_on:
       - db
     volumes:

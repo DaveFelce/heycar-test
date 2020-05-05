@@ -74,5 +74,21 @@ class DB:
 
         return image_row
 
+    def delete_image_record(self, image_id: str):
+        """
+        Delete an image record from the DB on image_id
+
+        :param image_id: UUID, the primary key of the image table
+        :return:
+        """
+        query_string = f"""
+            DELETE FROM image 
+            WHERE image.id = :image_id
+        """
+
+        query_args = {"image_id": image_id}
+        self.execute(query_string, query_args)
+        self.commit()
+
 
 db = DB()

@@ -18,6 +18,7 @@ def post():
     name = request.form.get("name")
     image = request.files.get("image")
 
+    # TODO: Obviously this would normally have a LOT more security, API keys etc!
     if image:
         try:
             image_url = g.aws.upload_file_to_s3(

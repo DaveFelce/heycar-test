@@ -1,10 +1,11 @@
 from fixtures.requests.images import get_image
 
 
+# TODO: Huge caveat!! This would normally be done against a separate, temporary test DB !!
 class TestImage:
     def test_get_image(
         self,
-        db_session,
+        seed_image,
         get_image,
     ):
         """
@@ -15,14 +16,18 @@ class TestImage:
 
         # GIVEN
         # idea = seed_idea(user_student[0].id, idea_status_published)
+        image_id = "7695667e-ce87-4ce1-929c-a1cbd398b999"
+        name = "testname"
+        image_url = "https://heycar-davidfelce-test.s3.eu-west-2.amazonaws.com/ELRFtJyXYAAdddd.jpg"
+        seed_image(image_id=image_id, name=name, image_url=image_url)
 
         # WHEN
         response = get_image(
-            image_id="7695667e-ce87-4ce1-929c-a1cbd398b181",
+            image_id=image_id,
         )
         json_data = response.get_json()["data"]
 
         # THEN
-        assert json_data["image_id"] == "7695667e-ce87-4ce1-929c-a1cbd398b181"
-        assert json_data["image_url"] == "https://heycar-davidfelce-test.s3.eu-west-2.amazonaws.com/ELRFtJyXYAAtmbw.jpg"
-        assert json_data["name"] == "Lewes bridge"
+        assert json_data["image_id"] == image_id
+        assert json_data["image_url"] == image_url
+        assert json_data["name"] == name

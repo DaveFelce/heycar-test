@@ -37,7 +37,7 @@ def post():
     data = {"image_id": image_id}
 
     # Done
-    return data, 201
+    return {"data": data}, 201
 
 
 def get():
@@ -56,4 +56,4 @@ def get():
     data = {"image_id": image_id, "name": name, "image_url": image_url}
 
     # Done
-    return data, 200
+    return {"data": data}, 200

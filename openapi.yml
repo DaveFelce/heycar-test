@@ -40,6 +40,8 @@ paths:
           description: Bad request. You must choose an image to upload.
     get:
       operationId: api.images.get
+      tags:
+        - Images
       summary: Retrieve the image from a UUID
       parameters:
         - in: query

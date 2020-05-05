@@ -36,6 +36,7 @@ services:
       - ENV=dev
       - PYTHONPATH=/app
       - FLASK_ENV=development
+      - S3_BUCKET=heycar-davidfelce-test
     links:
       - db:postgres
 

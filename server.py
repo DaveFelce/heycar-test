@@ -3,6 +3,7 @@ import os
 import connexion
 import utils
 from flask import g, redirect
+from services.aws import aws
 from services.db import db
 
 env = os.environ.get("ENV")
@@ -21,6 +22,7 @@ logger = utils.get_logger(__name__)
 @flask_app.before_request
 def get_db_connection():
     g.db = db
+    g.aws = aws
 
 
 # Create a URL route in our application for "/"

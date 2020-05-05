@@ -23,7 +23,7 @@ paths:
                   type: string
                   format: binary
       responses:
-        "200":
+        "201":
           description: Successful request
           content:
             application/json:
@@ -36,6 +36,8 @@ paths:
                       image_id:
                         type: string
                         format: uuid
+        "400":
+          description: Bad request. You must choose an image to upload.
     get:
       operationId: api.images.get
       summary: Retrieve the image from a UUID
@@ -49,7 +51,7 @@ paths:
         '200':
           description: Logo image in JPG format
           content:
-            image/jpg:
+            image/*:
               schema:
                 type: string
                 format: binary

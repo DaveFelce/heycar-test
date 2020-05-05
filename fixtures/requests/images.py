@@ -1,3 +1,5 @@
+import io
+
 import pytest
 from server import flask_app
 
@@ -13,3 +15,17 @@ def get_image():
         return response
 
     return _get_image
+
+
+@pytest.fixture(scope="session")
+def create_image():
+    def _create_image(name):
+        req_body = {"name": name}
+        req_body["image"] = (io.BytesIO(b"this is a test"), "test_image.jpg")
+
+        url = f"/image"
+        response = flask_app.test_client().post(url, data=req_body)
+
+        return response
+
+    return _create_image

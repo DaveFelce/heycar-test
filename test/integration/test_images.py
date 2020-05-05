@@ -1,7 +1,8 @@
-from fixtures.requests.images import get_image
+from fixtures.requests.images import create_image, get_image
 
 
 # TODO: Huge caveat!! This would normally be done against a separate, temporary test DB !!
+# TODO: There would normally be a LOT more tests, these are just basic examples of pytest/fixtures
 class TestImage:
     def test_get_image(
         self,
@@ -9,6 +10,7 @@ class TestImage:
         get_image,
     ):
         """
+        Test the GET request
 
         :param db_session: DB helper fixture
         :param get_image: Request fixture for /image
@@ -31,3 +33,24 @@ class TestImage:
         assert json_data["image_id"] == image_id
         assert json_data["image_url"] == image_url
         assert json_data["name"] == name
+
+    def test_create_image(
+        self,
+        create_image
+    ):
+        """
+        Test POST of image
+
+        :param create_image: create image request fixture
+        :return:
+        """
+        # GIVEN
+        name = "my_cool_picture.jpeg"
+
+        # WHEN
+        response = create_image(
+            name=name,
+        )
+
+        # THEN
+        assert response.status_code == 201

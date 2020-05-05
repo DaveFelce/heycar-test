@@ -34,6 +34,7 @@ class TestImage:
         assert json_data["image_url"] == image_url
         assert json_data["name"] == name
 
+    # TODO: Normally would mock all of this - anything past the app's boundary
     def test_create_image(
         self,
         create_image

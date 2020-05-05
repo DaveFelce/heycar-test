@@ -35,6 +35,7 @@ services:
       - LOG_LEVEL=DEBUG
       - ENV=dev
       - PYTHONPATH=/app
+      - FLASK_ENV=development
     links:
       - db:postgres
 

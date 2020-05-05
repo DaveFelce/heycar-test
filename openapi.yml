@@ -1,0 +1,55 @@
+openapi: 3.0.0
+info:
+  title: Images API
+  version: 0.1.0
+paths:
+  /image:
+    post:
+      operationId: api.images.post
+      tags:
+        - Images
+      summary: Upload an image to S3 bucket and receive a UUID
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      image_id:
+                        type: string
+                        format: uuid
+    get:
+      operationId: api.images.get
+      summary: Retrieve the image from a UUID
+      parameters:
+        - in: query
+          name: image_id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Logo image in JPG format
+          content:
+            image/jpg:
+              schema:
+                type: string
+                format: binary

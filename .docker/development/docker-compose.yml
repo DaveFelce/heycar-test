@@ -10,7 +10,7 @@ services:
       - POSTGRES_DB=heycar
       - POSTGRES_USER=postgres
     volumes:
-      - dev-pgdata:/var/lib/postgresql/data
+      - dev-heycar-pgdata:/var/lib/postgresql/data
     ports:
       - "5434:5432"
 
@@ -41,6 +41,6 @@ services:
       - db:postgres
 
 volumes:
-  dev-pgdata:
+  dev-heycar-pgdata:
     driver: local
 
